@@ -14,6 +14,7 @@ HeadingMeter::HeadingMeter(QWidget *parent) :
     ui->setupUi(this);
     setMask(QRegion(0,0,ui->pixmapLable->width(),ui->pixmapLable->height(),QRegion::Ellipse));
     LoadHeadPixmap();
+    time(&m_lLasfRefreshTime);
 }
 
 HeadingMeter::~HeadingMeter()
@@ -40,9 +41,20 @@ int32_t HeadingMeter::LoadHeadPixmap()
 
 int32_t HeadingMeter::SetHead(float yaw)
 {
+    time_t now;
+    time(&now);
+    if(now - m_lLasfRefreshTime > 1)
+    {
+        m_lLasfRefreshTime = now;
+    }
+    else
+    {
+        return 0;
+    }
+    
     if(m_pHeadPixmap != nullptr)
     {
-        if(fabs(yaw - m_fYaw) < 0.2)
+        if(fabs(yaw - m_fYaw) < 1)
         {
             return 0;
         }

@@ -2,6 +2,7 @@
 #define HEADINGMETER_H
 
 #include <QWidget>
+#include <ctime>
 
 namespace Ui {
 class HeadingMeter;
@@ -23,6 +24,7 @@ private:
     QPixmap* m_pHeadPixmap;
     QPixmap m_cTransformedPixmap;
     float m_fYaw;
+    time_t m_lLasfRefreshTime;
 };
 
 #endif // HEADINGMETER_H
